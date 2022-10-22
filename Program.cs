@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Lotto
 {
     internal class Program
     {
         static Int64 nyeremeny = 2500000000;
-        static Int64 egyenleg = 2500000000;
+        static Int64 egyenleg = 10000;
 
         static void Main(string[] args)
         {
             Lottó();
+            
         }
         static void Lottó()
         {
+            Betoltes();
 
             do
             {
@@ -31,6 +34,7 @@ namespace Lotto
                     Console.WriteLine("A jelenlegi egyenleged: " + (egyenleg -= 500));
                     Console.WriteLine("A nyeremény ezen a héten: " + nyeremeny);
                     Jatek();
+                    Mentes();
                 }
                 else if (read == "nem")
                 {
@@ -130,6 +134,37 @@ namespace Lotto
                 
             }
 
+        }
+        private static void Mentes()
+        {
+            Console.WriteLine("A játék el lett mentve!");
+
+           
+            File.WriteAllText("egyenleg.txt" , egyenleg.ToString());
+            File.WriteAllText("nyeremeny.txt", nyeremeny.ToString());
+            
+
+
+        }
+
+        private static void Betoltes()
+        {
+            if (File.Exists("egyenleg.txt") && File.Exists("nyeremeny.txt"))
+            {
+                string egyenlegtarolt = File.ReadAllText("egyenleg.txt");
+                string nyeremenytarolt = File.ReadAllText("nyeremeny.txt");
+                
+                egyenleg = Int64.Parse(egyenlegtarolt);
+                nyeremeny = Int64.Parse(nyeremenytarolt);
+            }
+            
+            
+            
+            
+           
+
+            
+             
         }
     }        
 }
