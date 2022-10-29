@@ -21,6 +21,7 @@ namespace Lotto
         {
             Betoltes();
 
+
             do
             {
                 Console.WriteLine("Szeretnél játszani? (igen vagy nem) :");
@@ -33,8 +34,9 @@ namespace Lotto
                     Console.WriteLine("Oké!");
                     Console.WriteLine("A jelenlegi egyenleged: " + (egyenleg -= 500));
                     Console.WriteLine("A nyeremény ezen a héten: " + nyeremeny);
-                    Jatek();
                     Mentes();
+                    Jatek();
+                    
                 }
                 else if (read == "nem")
                 {
@@ -127,11 +129,15 @@ namespace Lotto
             {
                 
                 Console.WriteLine("elfogyott a pénzed, a játék itt véget ér");
+                File.Delete("egyenleg.txt");
+                File.Delete("nyeremeny.txt");
             }
             else if(egyenleg > 500000000)
             {
                 Console.WriteLine("a pénzed nagyobb, mint 500 millió így megnyerted a játékot és itt véget ér!");
-                
+                File.Delete("nyeremeny.txt");
+                File.Delete("egyenleg.txt");
+
             }
 
         }
@@ -156,15 +162,9 @@ namespace Lotto
                 
                 egyenleg = Int64.Parse(egyenlegtarolt);
                 nyeremeny = Int64.Parse(nyeremenytarolt);
-            }
-            
-            
-            
-            
-           
-
-            
-             
+                
+            }   
         }
+        //mentes betoltes megcsinalasa (file torlese)
     }        
 }
